@@ -10,15 +10,16 @@ node {
         }
 
     stage('Build'){
-       sh "mvn clean install"
+      
     }
 
     stage("Image Prune"){
-        
+        sh "docker image prune -a -f"
     }
 
     stage('Image Build'){
-        
+        sh "docker build -t $containerName:$tag  -t $containerName --pull --no-cache ."
+        echo "Image build complete"
     }
 
     stage('Push to Docker Registry'){
