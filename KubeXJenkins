@@ -2,8 +2,6 @@ def containerName="docker-pipeline"
 def tag="latest"
 def dockerHubUser="logn31"
 def httpPort="8090"
-def dockerUser="logn31"
-def dockerPassword="LoganWolf@12" 
 
 node {
 
@@ -25,11 +23,12 @@ node {
     }
 
     stage('Push to Docker Registry'){
+           withCredentials([usernamePassword(credentialsId: 'DockerHub', usernameVariable: 'dockerUser', passwordVariable: 'dockerPassword')]) {
             sh "docker login -u $dockerUser -p $dockerPassword"
             sh "docker tag $containerName:$tag $dockerUser/$containerName:$tag"
             sh "docker push $dockerUser/$containerName:$tag"
             echo "Image push complete"
-            
+        }
     }
 
     stage('Run App'){
