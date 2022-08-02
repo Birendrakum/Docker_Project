@@ -6,43 +6,25 @@ def httpPort="8090"
 node {
 
     stage('Checkout') {
-        checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'GitHubCreds', url: 'https://github.com/Birendrakum/SimpilearnProject.git']]]
-    }
+            }
 
     stage('Build'){
        
     }
 
     stage("Image Prune"){
-         sh "docker image prune -a -f"
+        
     }
 
     stage('Image Build'){
-        sh "docker build -t $containerName:$tag  -t $containerName --pull --no-cache ."
-        echo "Image build complete"
+        
     }
 
     stage('Push to Docker Registry'){
-        withCredentials([usernamePassword(usernameVariable: 'logn31', passwordVariable: 'LoganWolf@12')]) {
-            sh "docker login -u $dockerUser -p $dockerPassword"
-            sh "docker tag $containerName:$tag $dockerUser/$containerName:$tag"
-            sh "docker push $dockerUser/$containerName:$tag"
-            echo "Image push complete"
-        }
+       
     }
 
     stage('Run App'){
-        /*sh "docker rm $containerName -f"
-        sh "docker pull $dockerHubUser/$containerName"
-        sh "docker run -d --rm -p $httpPort:$httpPort --name $containerName $dockerHubUser/$containerName:$tag"
-        echo "Application started on port: ${httpPort} (http)"
-        */
-        sh """
-           kubectl get pods
-           kubectl delete deployment kubernetes-bootcamp | true
-           kubectl create deployment kubernetes-bootcamp --image=docker.io/anujsharma1990/docker-pipeline --port=8090
-           kubectl get pods
-        """
-    }
+       
 
 }
