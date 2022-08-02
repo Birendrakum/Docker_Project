@@ -6,7 +6,8 @@ def httpPort="8090"
 node {
 
     stage('Checkout') {
-            }
+         checkout scm
+        }
 
     stage('Build'){
        
