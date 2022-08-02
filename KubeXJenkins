@@ -10,7 +10,7 @@ node {
     }
 
     stage('Build'){
-        sh "mvn clean install"
+        sh "mvn -f ("/var/lib/jenkins/workspace/FirstPipeline") clean install"
     }
 
     stage("Image Prune"){
