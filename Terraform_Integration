@@ -1,0 +1,11 @@
+pipeline{
+   agent any
+   tools {
+  terraform 'TerraForm'
+   }
+   stages{
+      stage("Terraform Init"){
+      sh 'terraform init'
+      }
+      satge(
+   
