@@ -9,10 +9,6 @@ node {
          checkout scm
         }
 
-    stage('Add User'){
-      sh "sudo usermod -a -G docker jenkins"
-    }
-
     stage("Image Prune"){
         sh "docker image prune -a -f"
     }
