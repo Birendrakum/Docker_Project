@@ -9,7 +9,7 @@ node {
          checkout scm
         }
      stage('User') {
-         sh "docker image prune -a -f"
+         sh "docker image prune -a "
         }
     stage('Image Build'){
         sh "docker build -t $containerName:$tag  -t $containerName --pull --no-cache ."
